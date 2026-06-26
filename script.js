@@ -17,15 +17,70 @@ const products=[
 ['cloths','Microfiber Cloths','Cleaning','Cloths','Sonax','universal',8],['wheel-cleaner','Wheel Cleaner','Cleaning','Cleaner','Nigrin','universal',9],['interior-cleaner','Interior Cleaner','Cleaning','Cleaner','Sonax','universal',11],['car-shampoo','Car Shampoo','Cleaning','Shampoo','Meguiars','universal',7]
 ].map(([id,name,group,type,maker,partType,price])=>({id,name,group,type,maker,partType,price}));
 const repairByGroup={Filters:[['remove-filter','Remove filter','Remove old selected filter',0.3,21],['install-filter','Install new filter','Install new selected filter',0.4,28]],Engine:[['remove-engine-part','Remove engine part','Remove selected engine part',0.8,56],['install-engine-part','Install engine part','Install selected engine part',1.1,77]],Brakes:[['remove-brakes','Remove brake parts','Remove selected brake parts',0.6,42],['install-brakes','Install brake parts','Install selected brake parts',0.9,63]],Electrical:[['diagnose-electrical','Electrical diagnostics','Check selected electrical system',0.7,49],['replace-electrical','Replace electrical part','Replace selected electrical part',0.8,56]],Suspension:[['inspect-suspension','Inspect suspension','Inspect selected suspension group',0.5,35],['replace-suspension','Replace selected suspension part','Replace selected suspension part',1.2,84]]};
-let state={selectedBrand:'',selectedGroup:'',selectedGroupType:'',model:'',year:'',engine:'',plate:'',mileage:'',basket:[],orders:[],profile:{},feedback:null,savedVehicle:null};
+let state={selectedBrand:'',selectedGroup:'',selectedGroupType:'',model:'',year:'',engine:'',plate:'',mileage:'',basket:[],orders:[],profile:{name:'',email:''},feedback:null,savedVehicle:null,currentUser:''};
 function $(id){return document.getElementById(id)}
 function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}
 function load(){try{state={...state,...JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}')}}catch{}}
 window.addEventListener('DOMContentLoaded',()=>{load();wireAuth();renderStatic();showAuth()});
 function wireAuth(){$('showLoginBtn').onclick=()=>toggleAuth('login');$('showRegisterBtn').onclick=()=>toggleAuth('register');$('loginBtn').onclick=login;$('registerBtn').onclick=register}
 function toggleAuth(mode){const login=mode==='login';$('loginForm').style.display=login?'block':'none';$('registerForm').style.display=login?'none':'block';$('showLoginBtn').classList.toggle('active',login);$('showRegisterBtn').classList.toggle('active',!login);$('loginError').textContent=''}
-function login(){const u=$('username').value.trim();const p=$('password').value;const reg=JSON.parse(localStorage.getItem('registeredUser')||'null');if((u==='testuser'&&p==='Password123')||(reg&&u===reg.username&&p===reg.password)){state.basket=[];state.orders=[];$('loginError').textContent='';showApp();return}$('loginError').textContent='Invalid credentials'}
-function register(){const name=$('registerName').value.trim(),email=$('registerEmail').value.trim(),username=$('registerUsername').value.trim(),password=$('registerPassword').value;if(!name||!email||!username||!password){$('registerMessage').className='error';$('registerMessage').textContent='Please complete all registration fields.';return}localStorage.setItem('registeredUser',JSON.stringify({username,password,name,email}));$('registerMessage').className='success';$('registerMessage').textContent='Registration successful. You can now login.';toggleAuth('login')}
+function login(){
+  const u=$('username').value.trim();
+  const p=$('password').value;
+  const users=JSON.parse(localStorage.getItem('registeredUsers')||'[]');
+  const registeredUser=users.find(user=>user.username===u&&user.password===p);
+
+  if(u==='testuser'&&p==='Password123'){
+    state.currentUser='testuser';
+    state.profile={...state.profile,name:'Test User',email:'testuser@example.com'};
+    state.basket=[];
+    state.orders=[];
+    $('loginError').textContent='';
+    showApp();
+    save();
+    return;
+  }
+
+  if(registeredUser){
+    state.currentUser=registeredUser.username;
+    state.profile={...state.profile,name:registeredUser.name,email:registeredUser.email};
+    state.basket=[];
+    state.orders=[];
+    $('loginError').textContent='';
+    showApp();
+    save();
+    return;
+  }
+
+  $('loginError').textContent='Invalid credentials';
+}
+function register(){
+  const name=$('registerName').value.trim();
+  const email=$('registerEmail').value.trim();
+  const username=$('registerUsername').value.trim();
+  const password=$('registerPassword').value;
+
+  if(!name||!email||!username||!password){
+    $('registerMessage').className='error';
+    $('registerMessage').textContent='Please complete all registration fields.';
+    return;
+  }
+
+  const users=JSON.parse(localStorage.getItem('registeredUsers')||'[]');
+  const existingIndex=users.findIndex(user=>user.username===username);
+  const userData={name,email,username,password};
+
+  if(existingIndex>=0){
+    users[existingIndex]=userData;
+  }else{
+    users.push(userData);
+  }
+
+  localStorage.setItem('registeredUsers',JSON.stringify(users));
+  $('registerMessage').className='success';
+  $('registerMessage').textContent='Registration successful. You can now login.';
+  toggleAuth('login');
+}
 function showAuth(){$('authPage').style.display='grid';$('appPage').style.display='none'}
 function showApp(){$('authPage').style.display='none';$('appPage').style.display='block';renderAll();showPage('manufacturers')}
 function renderStatic(){$('brandGrid').innerHTML=brands.map(([name,slug])=>{
@@ -63,6 +118,28 @@ function basketList(list,empty){return list.length?list.map(i=>`<div class="bask
 function order(){if(!state.basket.length){$('orderMessage').className='error';$('orderMessage').textContent='Basket is empty.';return}const o={id:Math.floor(100000+Math.random()*900000),items:[...state.basket],total:state.basket.reduce((s,i)=>s+i.price*i.quantity,0)};state.orders=[o];state.basket=[];$('showOrderBtn').style.display='inline-block';$('orderMessage').className='success';$('orderMessage').textContent=`Order ${o.id} placed successfully.`;renderBasket();save()}
 function showLastOrder(){const o=state.orders[0];if(!o)return;const parts=o.items.filter(i=>i.itemType==='product'),reps=o.items.filter(i=>i.itemType==='repair-time');$('orderDetails').style.display='block';$('orderDetails').innerHTML=`<h3>Order ${o.id}</h3><h4>Ordered parts</h4>${basketList(parts,'No ordered parts')}<h4>Ordered repair times</h4>${basketList(reps,'No repair times')}`}
 function renderProfile(){const p=state.profile||{};$('profileName').value=p.name||'';$('profileBirthDate').value=p.birthDate||'';$('profileCity').value=p.city||'';$('profileCountry').value=p.country||'';$('profileEmail').value=p.email||'';$('genderMale').checked=p.gender==='Male';$('genderFemale').checked=p.gender==='Female'}
-function saveProfile(){state.profile={name:$('profileName').value,birthDate:$('profileBirthDate').value,gender:$('genderFemale').checked?'Female':($('genderMale').checked?'Male':''),city:$('profileCity').value,country:$('profileCountry').value,email:$('profileEmail').value};$('profileMessage').textContent='Profile saved.';save()}
+function saveProfile(){
+  state.profile={
+    name:$('profileName').value,
+    birthDate:$('profileBirthDate').value,
+    gender:$('genderFemale').checked?'Female':($('genderMale').checked?'Male':''),
+    city:$('profileCity').value,
+    country:$('profileCountry').value,
+    email:$('profileEmail').value
+  };
+
+  if(state.currentUser && state.currentUser!=='testuser'){
+    const users=JSON.parse(localStorage.getItem('registeredUsers')||'[]');
+    const user=users.find(item=>item.username===state.currentUser);
+    if(user){
+      user.name=state.profile.name;
+      user.email=state.profile.email;
+      localStorage.setItem('registeredUsers',JSON.stringify(users));
+    }
+  }
+
+  $('profileMessage').textContent='Profile saved.';
+  save();
+}
 function saveFeedback(){state.feedback={type:$('feedbackType').value,message:$('feedbackMessage').value};$('feedbackResult').textContent='Feedback saved.';$('latestFeedback').textContent=`${state.feedback.type}: ${state.feedback.message}`;save()}
 function safe(x){return x.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')}
