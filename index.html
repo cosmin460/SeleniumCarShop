@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Selenium Car Parts Shop</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main id="authPage" class="auth-page">
+    <section class="car-visual">
+      <div class="brand-title">CAR PARTS<br><span>& REPAIR TIMES</span></div>
+      <div class="sports-car">
+        <div class="car-body"></div>
+        <div class="wheel wheel-left"></div>
+        <div class="wheel wheel-right"></div>
+      </div>
+      <div class="hero-text">
+        <h1>Welcome back</h1>
+        <p>Simple Selenium test website</p>
+      </div>
+    </section>
+
+    <section class="auth-side">
+      <div class="auth-card">
+        <h1>Car Parts Shop</h1>
+        
+
+        <div class="tabs">
+          <button id="showLoginBtn" class="tab active" type="button">Login</button>
+          <button id="showRegisterBtn" class="tab" type="button">Register</button>
+        </div>
+
+        <form id="loginForm">
+          <label for="username">Username</label>
+          <input id="username" data-testid="login-username" placeholder="testuser" />
+
+          <label for="password">Password</label>
+          <input id="password" data-testid="login-password" type="password" placeholder="Password123" />
+
+          <button id="loginBtn" class="primary" data-testid="login-button" type="button">Login</button>
+          <div id="loginError" class="error" role="alert"></div>
+        </form>
+
+        <form id="registerForm" style="display:none">
+          <label for="registerName">Name</label>
+          <input id="registerName" data-testid="register-name" placeholder="Test User" />
+
+          <label for="registerEmail">Email</label>
+          <input id="registerEmail" data-testid="register-email" type="email" placeholder="test@example.com" />
+
+          <label for="registerUsername">Username</label>
+          <input id="registerUsername" data-testid="register-username" placeholder="newuser" />
+
+          <label for="registerPassword">Password</label>
+          <input id="registerPassword" data-testid="register-password" type="password" placeholder="Password123" />
+
+          <button id="registerBtn" class="primary" data-testid="register-button" type="button">Register</button>
+          <div id="registerMessage" class="success" role="status"></div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <main id="appPage" class="app" style="display:none">
+    <header class="header">
+      <div>
+        <h1>Car Parts Shop</h1>
+        <p id="currentUser" class="muted">Logged in</p>
+      </div>
+      <div class="header-actions">
+        <button id="basketNavBtn" class="dark" type="button">Basket (<span id="basketCount">0</span>)</button>
+        <button id="profileNavBtn" type="button">Profile</button>
+        <button id="feedbackNavBtn" type="button">Feedback</button>
+        <button id="logoutBtn" type="button">Logout</button>
+      </div>
+    </header>
+
+    <nav class="steps">
+      <button id="stepManufacturers" data-page="manufacturers" class="step active" type="button">1. Manufacturer</button>
+      <button id="stepVehicle" data-page="vehicle" class="step" type="button">2. Vehicle & Parts</button>
+      <button id="stepProducts" data-page="products" class="step" type="button">3. Products & Repair Times</button>
+    </nav>
+
+    <section id="manufacturersPage" class="page">
+      <div class="panel">
+        <h2>Select manufacturer</h2>
+        <div id="brandGrid" class="brand-grid"></div>
+
+        <h2>Universal Parts</h2>
+        <p class="muted">Available without selecting a car.</p>
+        <div id="universalGroupsHome" class="group-grid"></div>
+      </div>
+    </section>
+
+    <section id="vehiclePage" class="page" style="display:none">
+      <div class="panel">
+        <h2>Vehicle details</h2>
+        <p id="selectedManufacturerText" class="muted">No manufacturer selected</p>
+
+        <div class="form-grid">
+          <div><label for="model">Model</label><select id="model" data-testid="model"></select></div>
+          <div><label for="year">Year</label><select id="year" data-testid="year"></select></div>
+          <div><label for="engine">Engine</label><select id="engine" data-testid="engine"></select></div>
+          <div><label for="numberPlate">Number plate</label><input id="numberPlate" data-testid="number-plate" placeholder="B-123-TEST" /></div>
+          <div><label for="mileage">Mileage</label><input id="mileage" data-testid="mileage" type="number" placeholder="120000" /></div>
+        </div>
+
+        <button id="saveVehicleBtn" class="primary" type="button">Save vehicle</button>
+        <div id="saveVehicleMessage" class="success"></div>
+
+        <div id="savedVehicleCard" class="saved-card" data-testid="saved-vehicle" style="display:none">
+          <div class="saved-logo" id="savedVehicleLogo"></div>
+          <div>
+            <h3>Saved vehicle</h3>
+            <p><strong>Manufacturer:</strong> <span id="savedVehicleManufacturer"></span></p>
+            <p><strong>Model:</strong> <span id="savedVehicleModel"></span></p>
+            <p><strong>Plate:</strong> <span id="savedVehiclePlate"></span></p>
+            <p><strong>Mileage:</strong> <span id="savedVehicleMileage"></span></p>
+          </div>
+        </div>
+
+        <h2>Vehicle Parts</h2>
+        <div id="vehicleGroups" class="group-grid"></div>
+
+        <h2>Universal Parts</h2>
+        <div id="universalGroupsVehicle" class="group-grid"></div>
+      </div>
+    </section>
+
+    <section id="productsPage" class="page" style="display:none">
+      <div class="panel">
+        <h2>Products</h2>
+        <p id="selectionSummary" class="muted"></p>
+
+        <div class="filters">
+          <select id="priceFilter" data-testid="price-filter">
+            <option value="">All prices</option>
+            <option value="25">Up to €25</option>
+            <option value="50">Up to €50</option>
+            <option value="100">Up to €100</option>
+            <option value="200">Up to €200</option>
+          </select>
+          <select id="articleTypeFilter" data-testid="article-type-filter"><option value="">All article types</option></select>
+          <select id="manufacturerFilter" data-testid="manufacturer-filter"><option value="">All manufacturers</option></select>
+        </div>
+
+        <div id="toast" class="toast" data-testid="toast"></div>
+        <div id="productsList" class="products-grid"></div>
+
+        <h2>Repair Times</h2>
+        <table class="repair-table">
+          <thead><tr><th>Operation</th><th>Description</th><th>Hours</th><th>Price</th><th>Add</th></tr></thead>
+          <tbody id="repairTimesBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="basketPage" class="page" style="display:none">
+      <div class="panel">
+        <h2>Basket</h2>
+        <div id="basketProducts" data-testid="basket-products"></div>
+        <div id="basketRepairs" data-testid="basket-repairs"></div>
+        <h3>Total: <span id="basketTotal">€0.00</span></h3>
+        <button id="orderBtn" class="primary" type="button">Order parts</button>
+        <button id="showOrderBtn" type="button" style="display:none">Show order</button>
+        <div id="orderMessage" class="success"></div>
+        <div id="orderDetails" data-testid="order-details" style="display:none"></div>
+      </div>
+    </section>
+
+    <section id="profilePage" class="page" style="display:none">
+      <div class="panel">
+        <h2>Profile</h2>
+        <label for="profileName">Name</label><input id="profileName" data-testid="profile-name" />
+        <label for="profileBirthDate">Date of birth</label><input id="profileBirthDate" data-testid="profile-birthdate" type="date" />
+        <label>Gender</label>
+        <div class="gender-row">
+          <label><input type="radio" name="gender" id="genderMale" value="Male"> Male</label>
+          <label><input type="radio" name="gender" id="genderFemale" value="Female"> Female</label>
+        </div>
+        <label for="profileCity">City</label><input id="profileCity" data-testid="profile-city" />
+        <label for="profileCountry">Country</label><input id="profileCountry" data-testid="profile-country" />
+        <label for="profileEmail">Email</label><input id="profileEmail" data-testid="profile-email" type="email" />
+        <button id="saveProfileBtn" class="primary" type="button">Save profile</button>
+        <div id="profileMessage" class="success"></div>
+      </div>
+    </section>
+
+    <section id="feedbackPage" class="page" style="display:none">
+      <div class="panel">
+        <h2>Feedback</h2>
+        <select id="feedbackType" data-testid="feedback-type">
+          <option value="">Select type</option>
+          <option>Website</option>
+          <option>Product</option>
+          <option>Repair Times</option>
+        </select>
+        <textarea id="feedbackMessage" data-testid="feedback-message" placeholder="Write feedback"></textarea>
+        <button id="saveFeedbackBtn" class="primary" type="button">Save feedback</button>
+        <div id="feedbackResult" class="success"></div>
+        <div id="latestFeedback" data-testid="latest-feedback"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
