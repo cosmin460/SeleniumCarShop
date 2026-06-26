@@ -6,17 +6,125 @@ const engines=['1.5 Petrol','2.0 Diesel','Hybrid','Electric'];
 const vehicleGroups=['Filters','Engine','Brakes','Electrical','Suspension'];
 const universalGroups=['Accessories','Tools','Fluids','Cleaning'];
 const products=[
-['oil-filter','Oil Filter','Filters','Oil Filter','Bosch','vehicle',18],['air-filter','Air Filter','Filters','Air Filter','Mann Filter','vehicle',22],['cabin-filter','Cabin Filter','Filters','Cabin Filter','Mahle','vehicle',26],['fuel-filter','Fuel Filter','Filters','Fuel Filter','Bosch','vehicle',30],
-['spark-plugs','Spark Plug Set','Engine','Spark Plug','NGK','vehicle',42],['timing-belt','Timing Belt Kit','Engine','Timing Belt','Contitech','vehicle',120],['water-pump','Water Pump','Engine','Water Pump','SKF','vehicle',75],['engine-mount','Engine Mount','Engine','Engine Mount','Febi','vehicle',90],
-['brake-pads','Brake Pads Front','Brakes','Brake Pads','Brembo','vehicle',60],['brake-disc','Brake Disc Front','Brakes','Brake Disc','ATE','vehicle',80],['brake-fluid','Brake Fluid DOT4','Brakes','Brake Fluid','ATE','vehicle',13],['brake-caliper','Brake Caliper','Brakes','Brake Caliper','TRW','vehicle',130],
-['battery','Battery 75Ah','Electrical','Battery','Varta','vehicle',155],['alternator','Alternator','Electrical','Alternator','Bosch','vehicle',190],['starter','Starter Motor','Electrical','Starter Motor','Valeo','vehicle',170],['bulb','Headlight Bulb','Electrical','Bulb','Osram','vehicle',12],
-['shock-front','Shock Absorber Front','Suspension','Shock Absorber','Sachs','vehicle',70],['control-arm','Control Arm','Suspension','Control Arm','Lemforder','vehicle',85],['spring','Coil Spring','Suspension','Coil Spring','KYB','vehicle',50],['stabilizer','Stabilizer Link','Suspension','Stabilizer Link','Febi','vehicle',20],
-['phone-holder','Phone Holder','Accessories','Phone Holder','Baseus','universal',13],['warning-triangle','Warning Triangle','Accessories','Safety','CarPoint','universal',10],['first-aid','First Aid Kit','Accessories','Safety','Holthaus','universal',15],['floor-mats','Floor Mats','Accessories','Floor Mats','Petex','universal',30],
-['socket-set','Socket Set','Tools','Socket Set','Proxxon','universal',45],['torque-wrench','Torque Wrench','Tools','Torque Wrench','Gedore','universal',80],['screwdrivers','Screwdriver Set','Tools','Screwdriver','Wera','universal',25],['jack','Hydraulic Jack','Tools','Jack','Michelin','universal',70],
-['coolant','Coolant','Fluids','Coolant','Febi','universal',12],['screenwash','Screenwash','Fluids','Screenwash','Sonax','universal',6],['engine-oil','Engine Oil 5W-30','Fluids','Engine Oil','Castrol','universal',33],['adblue','AdBlue 10L','Fluids','AdBlue','Hoyer','universal',17],
-['cloths','Microfiber Cloths','Cleaning','Cloths','Sonax','universal',8],['wheel-cleaner','Wheel Cleaner','Cleaning','Cleaner','Nigrin','universal',9],['interior-cleaner','Interior Cleaner','Cleaning','Cleaner','Sonax','universal',11],['car-shampoo','Car Shampoo','Cleaning','Shampoo','Meguiars','universal',7]
+['oil-filter','Oil Filter','Filters','Oil Filter','Bosch','vehicle',18],
+['air-filter','Air Filter','Filters','Air Filter','Mann Filter','vehicle',22],
+['cabin-filter','Cabin Filter','Filters','Cabin Filter','Mahle','vehicle',26],
+['fuel-filter','Fuel Filter','Filters','Fuel Filter','Bosch','vehicle',30],
+['carbon-cabin-filter','Carbon Cabin Filter','Filters','Cabin Filter','Mann Filter','vehicle',36],
+
+['spark-plugs','Spark Plug Set','Engine','Spark Plug','NGK','vehicle',42],
+['timing-belt','Timing Belt Kit','Engine','Timing Belt','Contitech','vehicle',120],
+['water-pump','Water Pump','Engine','Water Pump','SKF','vehicle',75],
+['engine-mount','Engine Mount','Engine','Engine Mount','Febi','vehicle',90],
+['glow-plugs','Glow Plug Set','Engine','Glow Plug','Bosch','vehicle',55],
+
+['brake-pads','Brake Pads Front','Brakes','Brake Pads','Brembo','vehicle',60],
+['brake-disc','Brake Disc Front','Brakes','Brake Disc','ATE','vehicle',80],
+['brake-fluid','Brake Fluid DOT4','Brakes','Brake Fluid','ATE','vehicle',13],
+['brake-caliper','Brake Caliper','Brakes','Brake Caliper','TRW','vehicle',130],
+['rear-brake-pads','Rear Brake Pads','Brakes','Brake Pads','Textar','vehicle',52],
+
+['battery','Battery 75Ah','Electrical','Battery','Varta','vehicle',155],
+['alternator','Alternator','Electrical','Alternator','Bosch','vehicle',190],
+['starter','Starter Motor','Electrical','Starter Motor','Valeo','vehicle',170],
+['bulb','Headlight Bulb','Electrical','Bulb','Osram','vehicle',12],
+['wiper-motor','Wiper Motor','Electrical','Wiper Motor','Valeo','vehicle',98],
+
+['shock-front','Shock Absorber Front','Suspension','Shock Absorber','Sachs','vehicle',70],
+['control-arm','Control Arm','Suspension','Control Arm','Lemforder','vehicle',85],
+['spring','Coil Spring','Suspension','Coil Spring','KYB','vehicle',50],
+['stabilizer','Stabilizer Link','Suspension','Stabilizer Link','Febi','vehicle',20],
+['ball-joint','Ball Joint','Suspension','Ball Joint','Meyle','vehicle',28],
+
+['phone-holder','Phone Holder','Accessories','Phone Holder','Baseus','universal',13],
+['warning-triangle','Warning Triangle','Accessories','Safety','CarPoint','universal',10],
+['first-aid','First Aid Kit','Accessories','Safety','Holthaus','universal',15],
+['floor-mats','Floor Mats','Accessories','Floor Mats','Petex','universal',30],
+['seat-cover','Seat Cover','Accessories','Seat Cover','Walser','universal',24],
+
+['socket-set','Socket Set','Tools','Socket Set','Proxxon','universal',45],
+['torque-wrench','Torque Wrench','Tools','Torque Wrench','Gedore','universal',80],
+['screwdrivers','Screwdriver Set','Tools','Screwdriver','Wera','universal',25],
+['jack','Hydraulic Jack','Tools','Jack','Michelin','universal',70],
+['battery-tester','Battery Tester','Tools','Tester','Bosch','universal',35],
+
+['coolant','Coolant','Fluids','Coolant','Febi','universal',12],
+['screenwash','Screenwash','Fluids','Screenwash','Sonax','universal',6],
+['engine-oil','Engine Oil 5W-30','Fluids','Engine Oil','Castrol','universal',33],
+['adblue','AdBlue 10L','Fluids','AdBlue','Hoyer','universal',17],
+['brake-cleaner','Brake Cleaner','Fluids','Cleaner','Liqui Moly','universal',9],
+
+['cloths','Microfiber Cloths','Cleaning','Cloths','Sonax','universal',8],
+['wheel-cleaner','Wheel Cleaner','Cleaning','Cleaner','Nigrin','universal',9],
+['interior-cleaner','Interior Cleaner','Cleaning','Cleaner','Sonax','universal',11],
+['car-shampoo','Car Shampoo','Cleaning','Shampoo','Meguiars','universal',7],
+['glass-cleaner','Glass Cleaner','Cleaning','Cleaner','Liqui Moly','universal',8]
 ].map(([id,name,group,type,maker,partType,price])=>({id,name,group,type,maker,partType,price}));
-const repairByGroup={Filters:[['remove-filter','Remove filter','Remove old selected filter',0.3,21],['install-filter','Install new filter','Install new selected filter',0.4,28]],Engine:[['remove-engine-part','Remove engine part','Remove selected engine part',0.8,56],['install-engine-part','Install engine part','Install selected engine part',1.1,77]],Brakes:[['remove-brakes','Remove brake parts','Remove selected brake parts',0.6,42],['install-brakes','Install brake parts','Install selected brake parts',0.9,63]],Electrical:[['diagnose-electrical','Electrical diagnostics','Check selected electrical system',0.7,49],['replace-electrical','Replace electrical part','Replace selected electrical part',0.8,56]],Suspension:[['inspect-suspension','Inspect suspension','Inspect selected suspension group',0.5,35],['replace-suspension','Replace selected suspension part','Replace selected suspension part',1.2,84]]};
+const repairByGroup={
+Filters:[
+['remove-filter','Remove filter','Remove old selected filter',0.3,21],
+['install-filter','Install new filter','Install new selected filter',0.4,28],
+['inspect-filter-housing','Inspect filter housing','Check filter housing and seals',0.2,14],
+['clean-filter-area','Clean filter area','Clean the mounting area before installation',0.2,14],
+['reset-filter-service','Reset filter service interval','Reset service message after filter replacement',0.1,7]
+],
+Engine:[
+['remove-engine-part','Remove engine part','Remove selected engine part',0.8,56],
+['install-engine-part','Install engine part','Install selected engine part',1.1,77],
+['engine-diagnostics','Engine diagnostics','Run basic engine diagnostics',0.7,49],
+['check-fluid-leaks','Check fluid leaks','Inspect engine bay for leaks',0.5,35],
+['test-engine-operation','Test engine operation','Start and verify engine operation',0.4,28]
+],
+Brakes:[
+['remove-brakes','Remove brake parts','Remove selected brake parts',0.6,42],
+['install-brakes','Install brake parts','Install selected brake parts',0.9,63],
+['bleed-brake-system','Bleed brake system','Bleed the brake hydraulic system',0.7,49],
+['inspect-brake-lines','Inspect brake lines','Check lines and hoses for damage',0.4,28],
+['brake-road-test','Brake road test','Perform a short brake functionality test',0.3,21]
+],
+Electrical:[
+['diagnose-electrical','Electrical diagnostics','Check selected electrical system',0.7,49],
+['replace-electrical','Replace electrical part','Replace selected electrical part',0.8,56],
+['battery-test','Battery test','Measure battery voltage and health',0.2,14],
+['check-wiring','Check wiring','Inspect wiring and connectors',0.5,35],
+['clear-fault-codes','Clear fault codes','Clear related electrical fault codes',0.2,14]
+],
+Suspension:[
+['inspect-suspension','Inspect suspension','Inspect selected suspension group',0.5,35],
+['replace-suspension','Replace suspension part','Replace selected suspension part',1.2,84],
+['wheel-alignment-check','Wheel alignment check','Check alignment after suspension work',0.6,42],
+['tighten-suspension','Tighten suspension bolts','Torque suspension bolts to specification',0.3,21],
+['road-test-suspension','Suspension road test','Check noise and ride after repair',0.4,28]
+],
+Accessories:[
+['install-accessory','Install accessory','Install selected accessory',0.3,21],
+['remove-accessory','Remove accessory','Remove existing accessory',0.2,14],
+['fit-floor-mats','Fit floor mats','Install universal floor mats',0.1,7],
+['mount-phone-holder','Mount phone holder','Install and position phone holder',0.2,14],
+['accessory-final-check','Accessory final check','Check accessory position and stability',0.1,7]
+],
+Tools:[
+['prepare-tool-kit','Prepare tool kit','Prepare selected tools for usage',0.1,7],
+['inspect-tool','Inspect tool','Inspect selected tool for damage',0.1,7],
+['calibrate-torque-wrench','Calibrate torque wrench','Basic torque wrench check',0.3,21],
+['test-battery-tester','Test battery tester','Verify tester operation',0.2,14],
+['pack-tool-kit','Pack tool kit','Organize and pack tools',0.1,7]
+],
+Fluids:[
+['drain-fluid','Drain fluid','Drain selected vehicle fluid',0.4,28],
+['fill-fluid','Fill fluid','Fill selected fluid to correct level',0.3,21],
+['check-fluid-level','Check fluid level','Verify fluid level after filling',0.2,14],
+['inspect-fluid-leaks','Inspect fluid leaks','Check for leaks after fluid work',0.3,21],
+['dispose-old-fluid','Dispose old fluid','Dispose old fluid safely',0.2,14]
+],
+Cleaning:[
+['wash-exterior','Wash exterior','Wash vehicle exterior',0.5,35],
+['clean-wheels','Clean wheels','Clean wheels using selected cleaner',0.4,28],
+['clean-interior','Clean interior','Clean interior surfaces',0.5,35],
+['clean-glass','Clean glass','Clean windows and mirrors',0.2,14],
+['apply-wax','Apply wax','Apply protective wax finish',0.6,42]
+]
+};
 let state={selectedBrand:'',selectedGroup:'',selectedGroupType:'',model:'',year:'',engine:'',plate:'',mileage:'',basket:[],orders:[],profile:{name:'',email:''},feedback:null,savedVehicle:null,currentUser:''};
 function $(id){return document.getElementById(id)}
 function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}
@@ -33,6 +141,7 @@ function login(){
   if(u==='testuser'&&p==='Password123'){
     state.currentUser='testuser';
     state.profile={...state.profile,name:'Test User',email:'testuser@example.com'};
+    clearCurrentSelection();
     state.basket=[];
     state.orders=[];
     $('loginError').textContent='';
@@ -44,6 +153,7 @@ function login(){
   if(registeredUser){
     state.currentUser=registeredUser.username;
     state.profile={...state.profile,name:registeredUser.name,email:registeredUser.email};
+    clearCurrentSelection();
     state.basket=[];
     state.orders=[];
     $('loginError').textContent='';
@@ -81,6 +191,19 @@ function register(){
   $('registerMessage').textContent='Registration successful. You can now login.';
   toggleAuth('login');
 }
+
+function clearCurrentSelection(){
+  state.selectedBrand='';
+  state.selectedGroup='';
+  state.selectedGroupType='';
+  state.model='';
+  state.year='';
+  state.engine='';
+  state.plate='';
+  state.mileage='';
+  state.savedVehicle=null;
+}
+
 function showAuth(){$('authPage').style.display='grid';$('appPage').style.display='none'}
 function showApp(){$('authPage').style.display='none';$('appPage').style.display='block';renderAll();showPage('manufacturers')}
 function renderStatic(){$('brandGrid').innerHTML=brands.map(([name,slug])=>{
@@ -108,7 +231,7 @@ function baseProducts(){return products.filter(p=>p.group===state.selectedGroup&
 function renderProducts(){renderSummary();const base=baseProducts();fillDynamicFilters(base);let list=base.filter(p=>(!$('priceFilter').value||p.price<=Number($('priceFilter').value))&&(!$('articleTypeFilter').value||p.type===$('articleTypeFilter').value)&&(!$('manufacturerFilter').value||p.maker===$('manufacturerFilter').value));$('productsList').innerHTML=list.length?list.map(productCard).join(''):'<p class="muted">No products for this selection.</p>';document.querySelectorAll('[data-testid=add-to-basket]').forEach(b=>b.onclick=()=>addProduct(b.dataset.id));renderRepairs()}
 function fillDynamicFilters(list){const ct=$('articleTypeFilter').value,cm=$('manufacturerFilter').value;const types=[...new Set(list.map(p=>p.type))].sort(),makers=[...new Set(list.map(p=>p.maker))].sort();$('articleTypeFilter').innerHTML='<option value="">All article types</option>'+types.map(x=>`<option>${x}</option>`).join('');$('manufacturerFilter').innerHTML='<option value="">All manufacturers</option>'+makers.map(x=>`<option>${x}</option>`).join('');if(types.includes(ct))$('articleTypeFilter').value=ct;if(makers.includes(cm))$('manufacturerFilter').value=cm}
 function productCard(p){return `<article class="product-card" data-testid="product-card"><h3>${p.name}</h3><p>Type: ${p.type}</p><p>Manufacturer: ${p.maker}</p><p>Group: ${p.group}</p><p class="price">€${p.price.toFixed(2)}</p><div class="actions"><input id="qty-${p.id}" type="number" min="1" value="1"><button data-testid="add-to-basket" data-id="${p.id}">Add to basket</button></div></article>`}
-function renderRepairs(){const rows=state.selectedGroupType==='vehicle'?(repairByGroup[state.selectedGroup]||[]):[];$('repairTimesBody').innerHTML=rows.length?rows.map(r=>`<tr data-testid="repair-time-row"><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td>€${r[4].toFixed(2)}</td><td><button data-testid="add-repair-time" data-id="${r[0]}">Add</button></td></tr>`).join(''):'<tr><td colspan="5">No repair times for this selection.</td></tr>';document.querySelectorAll('[data-testid=add-repair-time]').forEach(b=>b.onclick=()=>addRepair(b.dataset.id))}
+function renderRepairs(){const rows=state.selectedGroup?(repairByGroup[state.selectedGroup]||[]):[];$('repairTimesBody').innerHTML=rows.length?rows.map(r=>`<tr data-testid="repair-time-row"><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td>€${r[4].toFixed(2)}</td><td><button data-testid="add-repair-time" data-id="${r[0]}">Add</button></td></tr>`).join(''):'<tr><td colspan="5">No repair times for this selection.</td></tr>';document.querySelectorAll('[data-testid=add-repair-time]').forEach(b=>b.onclick=()=>addRepair(b.dataset.id))}
 function addProduct(id){const p=products.find(x=>x.id===id),qty=Number($(`qty-${id}`).value)||1;addItem({key:`product-${id}`,itemType:'product',name:p.name,price:p.price,quantity:qty})}
 function addRepair(id){const r=(repairByGroup[state.selectedGroup]||[]).find(x=>x[0]===id);addItem({key:`repair-${id}`,itemType:'repair-time',name:r[1],price:r[4],quantity:1})}
 function addItem(item){item.vehicle=state.selectedBrand?`${state.selectedBrand} ${state.model}`:'Universal';item.year=state.year||'Any';item.engine=state.engine||'Any';item.plate=state.plate;item.mileage=state.mileage;const existing=state.basket.find(x=>x.key===item.key);if(existing)existing.quantity+=item.quantity;else state.basket.push(item);toast(`${item.quantity} x ${item.name} added to basket.`);renderBasket();save()}
