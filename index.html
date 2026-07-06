@@ -72,6 +72,9 @@
         <button id="basketNavBtn" class="dark" type="button">Basket (<span id="basketCount">0</span>)</button>
         <button id="profileNavBtn" type="button">Profile</button>
         <button id="feedbackNavBtn" type="button">Feedback</button>
+        <button id="favoritesNavBtn" type="button">Favorites</button>
+        <button id="garageNavBtn" type="button">Garage</button>
+        <button id="adminNavBtn" type="button">Admin</button>
         <button id="logoutBtn" type="button">Logout</button>
       </div>
     </header>
@@ -134,6 +137,7 @@
         <p id="selectionSummary" class="muted"></p>
 
         <div class="filters">
+          <input id="productSearch" data-testid="product-search" placeholder="Search products..." autocomplete="off" />
           <select id="priceFilter" data-testid="price-filter">
             <option value="">All prices</option>
             <option value="25">Up to €25</option>
@@ -143,14 +147,21 @@
           </select>
           <select id="articleTypeFilter" data-testid="article-type-filter"><option value="">All article types</option></select>
           <select id="manufacturerFilter" data-testid="manufacturer-filter"><option value="">All manufacturers</option></select>
+          <select id="sortFilter" data-testid="sort-filter"><option value="">Default sort</option><option value="price-asc">Price low to high</option><option value="price-desc">Price high to low</option><option value="name-asc">Name A-Z</option></select>
+          <label class="check-label"><input id="inStockFilter" data-testid="in-stock-filter" type="checkbox" /> In stock only</label>
         </div>
 
         <div id="toast" class="toast" data-testid="toast"></div>
+        <div id="loadingSpinner" class="loading-spinner" data-testid="loading-spinner" style="display:none">Loading...</div>
         <div id="productsList" class="products-grid"></div>
+        <div class="pagination"><button id="prevPageBtn" data-testid="prev-page" type="button">Previous</button><span id="pageInfo" data-testid="page-info">Page 1</span><button id="nextPageBtn" data-testid="next-page" type="button">Next</button></div>
+        <button id="openCompareBtn" class="primary" data-testid="open-compare" type="button">Compare selected</button>
+        <button id="clearCompareBtn" data-testid="clear-compare" type="button">Clear compare</button>
+        <div id="comparePanel" class="compare-panel" data-testid="compare-panel" style="display:none"></div>
 
         <h2>Repair Times</h2>
         <table class="repair-table">
-          <thead><tr><th>Operation</th><th>Description</th><th>Hours</th><th>Price</th><th>Add</th></tr></thead>
+          <thead><tr><th>Operation</th><th>Description</th><th>Hours</th><th>Price</th><th>Add</th><th>Compare</th></tr></thead>
           <tbody id="repairTimesBody"></tbody>
         </table>
       </div>
@@ -173,7 +184,7 @@
       <div class="panel">
         <h2>Profile</h2>
         <label for="profileName">Name</label><input id="profileName" data-testid="profile-name" />
-        <label for="profileBirthDate">Date of birth</label><input id="profileBirthDate" data-testid="profile-birthdate" type="date" />
+        <label for="profileBirthDate">Date of birth</label><input id="profileBirthDate" data-testid="profile-birthdate" type="text" placeholder="dd.MM.yyyy" />
         <label>Gender</label>
         <div class="gender-row">
           <label><input type="radio" name="gender" id="genderMale" value="Male"> Male</label>
@@ -187,7 +198,41 @@
       </div>
     </section>
 
-    <section id="feedbackPage" class="page" style="display:none">
+    
+    <section id="favoritesPage" class="page" style="display:none">
+      <div class="panel">
+        <h2>Favorites</h2>
+        <div id="favoritesList" data-testid="favorites-list"></div>
+      </div>
+    </section>
+
+    <section id="garagePage" class="page" style="display:none">
+      <div class="panel">
+        <h2>Vehicle Garage</h2>
+        <button id="saveToGarageBtn" class="primary" data-testid="save-to-garage" type="button">Save current vehicle to garage</button>
+        <div id="garageMessage" class="success"></div>
+        <div id="garageList" data-testid="garage-list"></div>
+      </div>
+    </section>
+
+    <section id="adminPage" class="page" style="display:none">
+      <div class="panel">
+        <h2>Admin Products</h2>
+        <div class="form-grid">
+          <input id="adminProductName" data-testid="admin-product-name" placeholder="Product name" />
+          <input id="adminProductGroup" data-testid="admin-product-group" placeholder="Group, e.g. Filters" />
+          <input id="adminProductType" data-testid="admin-product-type" placeholder="Article type" />
+          <input id="adminProductMaker" data-testid="admin-product-maker" placeholder="Manufacturer" />
+          <select id="adminProductPartType" data-testid="admin-product-part-type"><option value="vehicle">vehicle</option><option value="universal">universal</option></select>
+          <input id="adminProductPrice" data-testid="admin-product-price" type="number" placeholder="Price" />
+        </div>
+        <button id="adminAddProductBtn" class="primary" data-testid="admin-add-product" type="button">Add product</button>
+        <div id="adminMessage" class="success"></div>
+        <div id="adminProductsList" data-testid="admin-products-list"></div>
+      </div>
+    </section>
+
+<section id="feedbackPage" class="page" style="display:none">
       <div class="panel">
         <h2>Feedback</h2>
         <select id="feedbackType" data-testid="feedback-type">
